@@ -1,6 +1,15 @@
 <template>
   <div>
-    Lorem ipsum dolor sit amet.
+    <TodoLabel description="Hello World" />
   </div>
 </template>
 
+<script lang="ts">
+import TodoLabel from './components/TodoLabel.vue';
+
+export default {
+  components: {
+    TodoLabel,
+  }
+}
+</script>
