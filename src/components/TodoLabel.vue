@@ -1,6 +1,6 @@
 <template>
   <div class="todo-label">
-    <input v-on:click="changeState" type="checkbox" value="" class="todo-label__check">
+    <input type="checkbox" value="" class="todo-label__check">
     <p class="todo-label__description">
       {{ description }}
     </p>
@@ -9,10 +9,6 @@
 </template>
 
 <script lang="ts">
-import TodoStates from '@/modules/enums/TodoLabelEnum';
-
-let state = TodoStates.ACTIVE;
-
 export default {
   props: {
     description: {
@@ -21,27 +17,11 @@ export default {
     }
   },
   emits: ['remove'],
-  data() {
-    return {state};
-  },
-  methods: {
-    changeState: (ev: MouseEvent) => {
-      const checked= ev.target?.checked;
-      const parent = ev.target.parentNode;
-      const description = parent.querySelector('.todo-list__description');
-
-      if (checked === true) {
-        description.classList.add('.todo-list__completed');
-      } else {
-        description.classList.remove('.todo-list__completed');
-      }
-    },
-  },
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/scss/variables';
+@use '@/scss/variables' as *;
 
 .todo-label {
   display: flex;
@@ -110,6 +90,12 @@ export default {
     margin-right: auto;
 
     vertical-align: middle;
+    
+    &--completed {
+      color: $dark-grayish-blue--completed;
+  
+      text-decoration: line-through;
+    }
   }
 
   &__delete {
@@ -118,10 +104,5 @@ export default {
     width: 0.75rem;
   }
 
-  &__completed {
-    color: $dark-grayish-blue;
-
-    text-decoration: line-through;
-  }
 }
 </style>
