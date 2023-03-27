@@ -1,9 +1,21 @@
 <template>
   <div class="todo-label">
-    <input type="checkbox" value="" class="todo-label__check">
-    <p class="todo-label__description">
+    <input @click="$emit('changeState')" type="checkbox" value="" class="todo-label__check">
+    <p v-if="isNewDescription" 
+    @click="switchInput()" 
+    :class="{'todo-label__description--completed': !isActive}" 
+    class="todo-label__description">
       {{ description }}
     </p>
+    <input
+      v-if="!isNewDescription"
+      @keydown.enter="(ev: any) => {
+        $emit('changeDescription', ev.target.value, id);
+        switchInput();
+      }" 
+      :value="description" 
+      type="text" 
+      class="todo-label__input">
     <img @click="$emit('remove')" src="@/assets/images/icon-cross.svg" alt="" class="todo-label__delete">
   </div>
 </template>
@@ -11,12 +23,30 @@
 <script lang="ts">
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isNewDescription: true,
     }
   },
-  emits: ['remove'],
+  methods: {
+    switchInput() {
+      this.isNewDescription = !this.isNewDescription;
+    },
+  },
+  emits: ['remove', 'changeState', 'changeDescription'],
 }
 </script>
 
@@ -92,10 +122,25 @@ export default {
     vertical-align: middle;
     
     &--completed {
-      color: $dark-grayish-blue--completed;
+      color: $dark-grayish-blue;
   
       text-decoration: line-through;
     }
+  }
+
+  &__input {
+    appearance: none;;
+
+    margin-left: 0.75rem;
+    margin-right: auto;
+
+    border: none;
+    outline: none;
+
+    color: inherit;
+
+    font-size: inherit;
+    vertical-align: middle;
   }
 
   &__delete {
