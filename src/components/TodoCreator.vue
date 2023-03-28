@@ -8,6 +8,7 @@
       type="text" 
       class="todo-creator__input" 
       placeholder="Create new todo..."
+      autocomplete="off"
     >
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
     color: $very-dark-grayish-blue;
 
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
 }
 </style>

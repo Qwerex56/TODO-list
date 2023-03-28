@@ -1,22 +1,25 @@
 <template>
-  <TodoCreator
-    @create-todo="createTodo"
-  />
-  <div>
-    <TodoLabel
-      v-for="todo in getFilteredTodos()" :key="todo.id"
-      :id="todo.id"
-      :description="todo.description"
-      :is-active="todo.isActive"
-      @remove="removeTodo"
-      @change-state="changeState"
-      @change-description="changeDescription"
+  <main class="todo-app">
+    <TodoCreator
+      @create-todo="createTodo"
     />
-    <TodoCounter/>
-  </div>
-  <TodoFilters 
-    @new-filter="setFilter"
-  />
+    <section class="todo-app__list">
+      <TodoLabel
+        v-for="todo in getFilteredTodos()" :key="todo.id"
+        :todo="todo"
+        @remove="removeTodo"
+        @change-state="changeState"
+        @change-description="changeDescription"
+      />
+      <TodoCounter 
+        :active-todo-count="countActiveTodos()"
+        @remove-inactive="removeInactive()"
+      />
+    </section>
+    <TodoFilters 
+      @new-filter="setFilter"
+    />
+  </main>
 </template>
 
 <script lang="ts">
@@ -58,12 +61,18 @@ export default {
         });
         return max + 1;
       })();
-
+      if (newDescription.length === 0) {
+        return;
+      }
       this.todos.push(new TodoObject(nextId, newDescription, true));
     },
 
     removeTodo(id: number) {
       this.todos = this.todos.filter((el) => el.id !== id);
+    },
+
+    removeInactive() {
+      this.todos = this.todos.filter((el) => el.isActive === true);
     },
 
     changeState(id: number) {
@@ -95,10 +104,30 @@ export default {
           break;
       }
       return filteredTodos;
+    },
+
+    countActiveTodos(): number {
+      const count = this.todos.filter((el) => el.isActive === true).length;
+      return count;
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+
+.todo-app {
+  width: 87.2%;
+
+  margin: auto;
+
+  &__list {
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    border-radius: 0.313rem;
+  }
+}
 </style>

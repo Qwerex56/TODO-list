@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: red;">
+  <div style="background-color: red; display: flex;">
     <TodoList/>
   </div>
 </template>

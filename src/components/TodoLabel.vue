@@ -1,30 +1,30 @@
 <template>
   <div class="todo-label">
     <input 
-      @click="$emit('changeState', id)" 
+      @click="$emit('changeState', todo.id)" 
       type="checkbox"
       class="todo-label__check"
     >
     <p 
       v-if="isNewDescription" 
       @click="switchInput()" 
-      :class="{'todo-label__description--completed': !isActive}" 
+      :class="{'todo-label__description--completed': !todo.isActive}" 
       class="todo-label__description"
     >
-      {{ description }}
+      {{ todo.description }}
     </p>
     <input
       v-if="!isNewDescription"
       @keydown.enter="(ev: any) => {
-        $emit('changeDescription', ev.target.value, id);
+        $emit('changeDescription', ev.target.value, todo.id);
         switchInput();
       }" 
-      :value="description" 
+      :value="todo.description" 
       type="text" 
       class="todo-label__input"
     >
     <img 
-      @click="$emit('remove', id)" 
+      @click="$emit('remove', todo.id)" 
       src="@/assets/images/icon-cross.svg" 
       alt="" 
       class="todo-label__delete"
@@ -33,18 +33,12 @@
 </template>
 
 <script lang="ts">
+import TodoObject from '@/modules/TodoObject';
+
 export default {
   props: {
-    id: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    isActive: {
-      type: Boolean,
+    todo: {
+      type: TodoObject,
       required: true,
     },
   },
@@ -72,12 +66,13 @@ export default {
 
   padding: 1rem 1.25rem;
 
+  border-bottom: 0.0625rem solid $very-light-grayish-blue;
+
   background-color: white;
   color: $very-dark-grayish-blue;
 
   font-family: $josefin-sans;
   font-size: 0.75rem;
-
 
   &__check {
     $border-width: 0.125rem;
@@ -89,7 +84,7 @@ export default {
     height: 1.25rem;
 
     border: $border-width solid $dark-grayish-blue;
-    
+
     background-clip: padding-box;
     background-color: $very-light-gray;
     border-radius: 50%;
@@ -114,7 +109,7 @@ export default {
     &:checked {
       position: relative;
 
-      border: 0px solid transparent;
+      border: none;
       
       @include check-background-gradient;
       
@@ -135,7 +130,7 @@ export default {
     vertical-align: middle;
     
     &--completed {
-      color: $dark-grayish-blue;
+      color: $light-grayish-blue;
   
       text-decoration: line-through;
     }
@@ -152,7 +147,7 @@ export default {
 
     color: inherit;
 
-    font-size: inherit;
+    font-size: 0.75rem;
     vertical-align: middle;
   }
 
