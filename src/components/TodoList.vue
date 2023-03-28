@@ -1,34 +1,47 @@
 <template>
+  <TodoCreator
+    @create-todo="createTodo"
+  />
   <div>
-    <TodoCreator
-      @create-todo="createTodo"
-    />
     <TodoLabel
-      v-for="todo in todos" :key="todo.id"
+      v-for="todo in getFilteredTodos()" :key="todo.id"
       :id="todo.id"
       :description="todo.description"
       :is-active="todo.isActive"
-      @remove="removeTodo(todo.id)"
-      @change-state="changeState(todo.id)"
+      @remove="removeTodo"
+      @change-state="changeState"
       @change-description="changeDescription"
     />
+    <TodoCounter/>
   </div>
+  <TodoFilters 
+    @new-filter="setFilter"
+  />
 </template>
 
 <script lang="ts">
 import TodoCreator from './TodoCreator.vue';
 import TodoLabel from './TodoLabel.vue';
+import TodoCounter from './TodoCounter.vue';
+import TodoFilters from './TodoFilters.vue';
+
+import TodoObject from '@/modules/TodoObject'
+import FilterTypeEnum from '@/modules/FilterEnum';
 
 export default {
   components: {
     TodoCreator,
     TodoLabel,
+    TodoCounter,
+    TodoFilters,
   },
   data() {
     return {
       todos: [
-        {id: 0, description: "My first task!", isActive: true},
-      ]
+        new TodoObject(0, 'My first task!', true),
+      ],
+      filterEnum: FilterTypeEnum,
+      activeFilter: FilterTypeEnum.ALL,
     }
   },
   methods: {
@@ -38,37 +51,51 @@ export default {
           return 0;
         }
         let max = this.todos[0].id;
-        this.todos.forEach(element => {
-          if (max <= element.id) {
-            max = element.id
+        this.todos.forEach(el => {
+          if (max <= el.id) {
+            max = el.id
           }
         });
         return max + 1;
       })();
 
-      this.todos.push({
-        id: nextId,
-        description: newDescription,
-        isActive: true,
-      });
+      this.todos.push(new TodoObject(nextId, newDescription, true));
     },
+
     removeTodo(id: number) {
       this.todos = this.todos.filter((el) => el.id !== id);
     },
+
     changeState(id: number) {
       const index = this.todos.findIndex((el) => el.id === id);
       this.todos[index].isActive = !this.todos[index].isActive;
     },
+
     changeDescription(newDescription: string, id: number) {
       const index = this.todos.findIndex((el) => el.id === id);
-      const newTodo = {
-        id: id,
-        description: newDescription,
-        isActive: this.todos[index].isActive,
-      }
 
-      this.todos[index] = newTodo;
+      this.todos[index].description = newDescription;
     },
+
+    setFilter(newFilter: FilterTypeEnum) {
+      this.activeFilter = newFilter;
+    },
+
+    getFilteredTodos(): Array<TodoObject> {
+      let filteredTodos: Array<TodoObject>;
+      switch (this.activeFilter) {
+        case this.filterEnum.ALL:
+          filteredTodos = this.todos;
+          break
+        case this.filterEnum.ACTIVE:
+          filteredTodos = this.todos.filter((el) => el.isActive === true);
+          break;
+        case this.filterEnum.COMPLETED:
+          filteredTodos = this.todos.filter((el) => el.isActive === false);
+          break;
+      }
+      return filteredTodos;
+    }
   }
 }
 </script>

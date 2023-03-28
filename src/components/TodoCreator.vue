@@ -1,6 +1,5 @@
 <template>
   <div class="todo-creator">
-    
     <input 
       @keyup.enter="(ev: any) => {
         $emit('createTodo', ev.target.value);
@@ -8,7 +7,8 @@
       }" 
       type="text" 
       class="todo-creator__input" 
-      placeholder="Create new todo...">
+      placeholder="Create new todo..."
+    >
   </div>
 </template>
 
@@ -23,6 +23,9 @@ export default {
 .todo-creator {
   box-sizing: border-box;
   padding: 1rem 1.25rem;
+
+  background-color: white;
+  border-radius: 0.313rem;
 
   font-family: $josefin-sans;
   font-size:  0.75rem;

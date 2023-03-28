@@ -1,10 +1,16 @@
 <template>
   <div class="todo-label">
-    <input @click="$emit('changeState')" type="checkbox" value="" class="todo-label__check">
-    <p v-if="isNewDescription" 
-    @click="switchInput()" 
-    :class="{'todo-label__description--completed': !isActive}" 
-    class="todo-label__description">
+    <input 
+      @click="$emit('changeState', id)" 
+      type="checkbox"
+      class="todo-label__check"
+    >
+    <p 
+      v-if="isNewDescription" 
+      @click="switchInput()" 
+      :class="{'todo-label__description--completed': !isActive}" 
+      class="todo-label__description"
+    >
       {{ description }}
     </p>
     <input
@@ -15,8 +21,14 @@
       }" 
       :value="description" 
       type="text" 
-      class="todo-label__input">
-    <img @click="$emit('remove')" src="@/assets/images/icon-cross.svg" alt="" class="todo-label__delete">
+      class="todo-label__input"
+    >
+    <img 
+      @click="$emit('remove', id)" 
+      src="@/assets/images/icon-cross.svg" 
+      alt="" 
+      class="todo-label__delete"
+    >
   </div>
 </template>
 
@@ -60,6 +72,7 @@ export default {
 
   padding: 1rem 1.25rem;
 
+  background-color: white;
   color: $very-dark-grayish-blue;
 
   font-family: $josefin-sans;
