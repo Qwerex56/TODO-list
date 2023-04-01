@@ -161,6 +161,8 @@ export default {
   @media screen and (min-width: 768px) {
     & {
       width: 540px;
+
+      margin-top: 1.5rem;
       
       &__filters {
         margin: auto;
