@@ -23,7 +23,7 @@ export default {
 @use '@/scss/variables' as *;
 .todo-creator {
   box-sizing: border-box;
-  padding: 1rem 1.25rem;
+  padding: 0.875rem 1.25rem;
 
   background-color: white;
   border-radius: 0.313rem;
@@ -41,6 +41,27 @@ export default {
 
     font-family: inherit;
     font-size: 0.75rem;
+  }
+
+  .dark & {
+    background-color: $very-dark-desturated-blue;
+    
+    &__input {
+      color: $dark-grayish-blue-dark;
+      background-color: $very-dark-desturated-blue;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    & {
+      padding: 1.25rem 1.5rem;
+
+      font-size: 1.125rem;
+
+      &__input {
+        font-size: 1.125rem;
+      }
+    }
   }
 }
 </style>

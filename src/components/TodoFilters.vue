@@ -40,7 +40,7 @@ export default {
 
 .todo-filters {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   box-sizing: border-box;
 
   padding: 1rem;
@@ -55,6 +55,7 @@ export default {
 
     &--label {
       color: $dark-grayish-blue;
+      padding: 0rem 1.125rem;
 
       font-family: $josefin-sans;
       font-weight: 700;
@@ -66,6 +67,34 @@ export default {
 
     &:not(:checked):hover + &--label {
       color: $very-dark-grayish-blue;
+    }
+  }
+
+  .dark & {
+    background-color: $very-dark-desturated-blue;
+
+    &__input {
+      &--label {
+        color: $dark-grayish-blue-dark;
+      }
+
+      &:checked + &--label {
+        color: $bright-blue;
+      }
+
+      &:not(:checked):hover + &--label {
+        color: $very-light-grayish-blue;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    & {
+      max-width: 440px;
+
+      &__input--label {
+        padding: 0rem 0.5625rem;
+      }
     }
   }
 }

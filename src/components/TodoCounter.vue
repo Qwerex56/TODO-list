@@ -49,6 +49,24 @@ export default {
       color: $very-dark-grayish-blue;
     }
   }
+
+  .dark & {
+    background: $very-dark-desturated-blue;
+    color: $dark-grayish-blue-dark;
+    
+    &__clear-inactive {
+      cursor: default;
+      &:hover {
+        color: $light-grayish-blue-hover;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    & {
+      font-size: 0.875rem;
+    }
+  }
 }
 
 

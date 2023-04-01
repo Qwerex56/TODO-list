@@ -4,6 +4,7 @@
       @click="$emit('changeState', todo.id)" 
       type="checkbox"
       class="todo-label__check"
+      :checked="!todo.isActive"
     >
     <p 
       v-if="isNewDescription" 
@@ -60,6 +61,8 @@ export default {
 @use '@/scss/variables' as *;
 
 .todo-label {
+  $border-width: 0.125rem;
+  
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -75,7 +78,6 @@ export default {
   font-size: 0.75rem;
 
   &__check {
-    $border-width: 0.125rem;
     appearance: none;
 
     position: relative;
@@ -157,5 +159,34 @@ export default {
     width: 0.75rem;
   }
 
+  .dark & {
+    border-bottom: 0.0625rem solid $very-dark-grayish-blue2-dark;
+
+    background-color: $very-dark-desturated-blue;
+    color: $light-grayish-blue;
+
+    &__check {
+      background-color: $very-dark-desturated-blue;
+
+      border: $border-width solid $very-dark-grayish-blue2-dark;
+    }
+
+    &__description {
+      &--completed {
+        color: $very-dark-grayish-blue-dark;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    & {
+      padding: 1.25rem 1.5rem;
+      font-size: 1.125rem;
+
+      &__input {
+        font-size: 1.125rem;
+      }
+    }
+  }
 }
 </style>
