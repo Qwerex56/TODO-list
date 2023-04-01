@@ -167,7 +167,7 @@ export default {
       &__filters {
         margin: auto;
         background-color: transparent;
-        transform: translate(-1rem, -4rem);
+        transform: translate(0rem, -4rem);
       }
     }
   }

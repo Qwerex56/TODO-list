@@ -31,6 +31,8 @@ export default {
   font-family: $josefin-sans;
   font-size:  0.75rem;
 
+  transition: 0.3s;
+
   &__input {
     appearance: none;
 

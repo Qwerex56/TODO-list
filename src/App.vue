@@ -61,7 +61,8 @@ export default {
   box-sizing: border-box;
   align-items: center;
 
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
 
   background-color: $very-light-gray;
   color: white;
@@ -127,9 +128,13 @@ export default {
     background-color: $very-dark-blue;
     background-image: url('@/assets/images/bg-mobile-dark.jpg');
 
+    transition: 0.3s;
+
     @media screen and (min-width: 440px) {
       & {
         background-image: url('@/assets/images/bg-desktop-dark.jpg');
+
+        transition: 0.3s;
       }
     }
   }
