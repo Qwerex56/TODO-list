@@ -127,9 +127,13 @@ export default {
     background-color: $very-dark-blue;
     background-image: url('@/assets/images/bg-mobile-dark.jpg');
 
+    transition: 0.3s;
+
     @media screen and (min-width: 440px) {
       & {
         background-image: url('@/assets/images/bg-desktop-dark.jpg');
+
+        transition: 0.3s;
       }
     }
   }

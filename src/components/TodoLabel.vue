@@ -77,6 +77,8 @@ export default {
   font-family: $josefin-sans;
   font-size: 0.75rem;
 
+  transition: 0.3s;
+
   &__check {
     appearance: none;
 
@@ -130,6 +132,7 @@ export default {
     margin-right: auto;
 
     vertical-align: middle;
+    background: transparent;
     
     &--completed {
       color: $light-grayish-blue;
@@ -147,8 +150,10 @@ export default {
     border: none;
     outline: none;
 
+    background-color: transparent;
     color: inherit;
 
+    font-family: $josefin-sans;
     font-size: 0.75rem;
     vertical-align: middle;
   }
