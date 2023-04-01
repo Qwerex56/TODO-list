@@ -61,7 +61,8 @@ export default {
   box-sizing: border-box;
   align-items: center;
 
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
 
   background-color: $very-light-gray;
   color: white;
