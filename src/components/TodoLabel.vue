@@ -94,20 +94,19 @@ export default {
     border-radius: 50%;
     
     &:not(:checked):hover {
-      border: $border-width solid transparent;
+      border: none;
+      @include check-background-gradient;
 
       &::before {
         content: '';
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
         
-        margin: -$border-width;
+        margin: .1rem;
         
         border-radius: inherit;
-        
-        @include check-background-gradient;
 
-        z-index: -1;
+        background-color: $very-light-gray;
       }
     }
     &:checked {
@@ -119,10 +118,21 @@ export default {
       
       &::after {
         position: absolute;
-        left: 25%; bottom: 12%;
-        transform: position(0%, 0%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         
         content: url('@/assets/images/icon-check.svg');
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        
+        margin: -.1rem;
+        
+        border-radius: inherit;
+        @include check-background-gradient;
       }
     }
   }
@@ -174,6 +184,10 @@ export default {
       background-color: $very-dark-desturated-blue;
 
       border: $border-width solid $very-dark-grayish-blue2-dark;
+
+      &:not(:checked):hover::before {
+        background-color: $very-dark-desturated-blue;
+      }
     }
 
     &__description {
